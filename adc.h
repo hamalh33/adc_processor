@@ -5,6 +5,20 @@
 
 #pragma pack(push, 1)
 typedef struct {
+    uint32_t magic;
+    uint16_t version;
+    uint16_t channel_count;
+    uint32_t record_count;
+    uint32_t sample_rate;
+    uint8_t reserved[8];
+}ADCHeader;
+#pragma pack(pop)
+
+
+
+
+#pragma pack(push, 1)
+typedef struct {
     float timestamp;
     uint8_t channel_id;
     uint16_t raw_value;
