@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include "adc.h"
 
-int main(void) {
-    FILE *file = fopen("adc_sensor_log.bin", "rb");
+int main(int argc, char *argv[]) {
+   if (argc != 2) {
+       printf("usage: %s <filename>\n", argv[0]);
+       return 1;
+   }
+
+
+    FILE *file = fopen(argv[1], "rb");
     if (file == NULL) {
         printf("Error opening file\n");
         return 1;
@@ -13,7 +19,7 @@ int main(void) {
     fread(&header,sizeof(ADCHeader),1, file);
 
     if (header.magic != 0xADC1BEEF) {
-        printf("error: wrong file (wrong magic number)\n");
+        printf("Error: wrong file (invalid magic number)\n");
         fclose(file);
         return 1;
     }
@@ -29,4 +35,6 @@ int main(void) {
 
 
 }
+
+
 
