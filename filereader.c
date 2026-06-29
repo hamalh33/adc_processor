@@ -12,6 +12,11 @@ int main(void) {
     ADCHeader header;
     fread(&header,sizeof(ADCHeader),1, file);
 
+    if (header.magic != 0xADC1BEEF) {
+        printf("error: wrong file (wrong magic number)\n");
+        fclose(file);
+        return 1;
+    }
 
     printf("Magic: %x\n", header.magic);
     printf("Version: %u\n", header.version);
@@ -24,3 +29,4 @@ int main(void) {
 
 
 }
+
