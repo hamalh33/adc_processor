@@ -40,13 +40,22 @@ ADCSample *samples = malloc(header.record_count * sizeof(ADCSample));
     }
 
     fread(samples,sizeof(ADCSample),header.record_count,file);
-    printf("first sample: channel=%u raw=%u\n", samples[0].channel_id, samples[0].raw_value);
-    printf("first sample voltage: %f\n", raw_to_voltage(samples[0].raw_value));
     printf("overvoltage faults: %d\n", count_overvoltage(samples, header.record_count));
     printf("undervoltage faults: %d\n", count_undervoltage(samples, header.record_count));
     printf("flag faults: %d\n", count_flag_faults(samples, header.record_count));
     printf("sequence gaps: %d\n", count_sequence_gaps(samples, header.record_count));
+
+
+
     FILE *out = fopen("results.txt", "w");
+
+    if (out == NULL) {
+        printf("error: could not open results file\n");
+        free(samples);
+        fclose(file);
+        return 1;
+    }
+
     fprintf(out, "ADC analysis results\n");
     fprintf(out, "records: %u\n", header.record_count);
     fprintf(out, "overvoltage faults: %d\n", count_overvoltage(samples, header.record_count));
