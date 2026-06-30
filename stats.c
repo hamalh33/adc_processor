@@ -1,4 +1,5 @@
 #include "stats.h"
+#include <math.h>
 
 float average(float values[], int count) {
     float sum = 0;
@@ -26,4 +27,15 @@ float find_max(float values[], int count) {
         }
     }
     return max;
+}
+
+
+float standard_deviation(float values[], int count) {
+    float avg = average(values, count);
+    float sum = 0;
+    for (int i = 0; i < count; i++) {
+        float diff = values[i] - avg;
+        sum = sum + (diff * diff);
+    }
+    return sqrt(sum / count);
 }
