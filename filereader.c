@@ -45,6 +45,7 @@ ADCSample *samples = malloc(header.record_count * sizeof(ADCSample));
     printf("overvoltage faults: %d\n", count_overvoltage(samples, header.record_count));
     printf("undervoltage faults: %d\n", count_undervoltage(samples, header.record_count));
     printf("flag faults: %d\n", count_flag_faults(samples, header.record_count));
+    printf("sequence gaps: %d\n", count_sequence_gaps(samples, header.record_count));
 
 for (int ch = 0; ch < header.channel_count; ch++) {
     float voltage[1000];

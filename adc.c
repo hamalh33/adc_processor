@@ -39,3 +39,13 @@ int count_flag_faults(ADCSample samples[], int count) {
     }
     return faults;
 }
+
+int count_sequence_gaps(ADCSample samples[], int count) {
+    int gaps = 0;
+    for (int i = 1; i < count; i++) {
+        if (samples[i].sequence_number != samples[i - 1].sequence_number + 1) {
+            gaps++;
+        }
+    }
+    return gaps;
+}
