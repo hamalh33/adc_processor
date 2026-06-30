@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "adc.h"
+#include "stats.h"
 
 
 int main(int argc, char *argv[]) {
@@ -42,6 +43,16 @@ ADCSample *samples = malloc(header.record_count * sizeof(ADCSample));
     printf("first sample: channel=%u raw=%u\n", samples[0].channel_id, samples[0].raw_value);
     printf("first sample voltage: %f\n", raw_to_voltage(samples[0].raw_value));
 
+float ch0[1000];
+    int ch0_count = 0;
+    for (int i=0; i < header.record_count; i++) {
+        if (samples[i].channel_id == 0) {
+            ch0[ch0_count] = raw_to_voltage(samples[i].raw_value);
+            ch0_count++;
+        }
+    }
+
+printf("channel 0 average voltage: %f\n", average(ch0, ch0_count));
 
     free(samples);
     fclose(file);

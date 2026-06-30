@@ -6,4 +6,6 @@ set(CMAKE_C_STANDARD 99)
 add_executable(adc_project main.c
         adc.h
         filereader.c
-        adc.c)
+        adc.c
+        stats.c
+        stats.h)
