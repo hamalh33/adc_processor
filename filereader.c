@@ -46,6 +46,14 @@ ADCSample *samples = malloc(header.record_count * sizeof(ADCSample));
     printf("undervoltage faults: %d\n", count_undervoltage(samples, header.record_count));
     printf("flag faults: %d\n", count_flag_faults(samples, header.record_count));
     printf("sequence gaps: %d\n", count_sequence_gaps(samples, header.record_count));
+    FILE *out = fopen("results.txt", "w");
+    fprintf(out, "ADC analysis results\n");
+    fprintf(out, "records: %u\n", header.record_count);
+    fprintf(out, "overvoltage faults: %d\n", count_overvoltage(samples, header.record_count));
+    fprintf (out, "undervoltage faults: %d\n", count_undervoltage(samples, header.record_count));
+    fprintf(out, "flag faults: %d\n", count_flag_faults(samples, header.record_count));
+    fprintf(out, "sequence gaps: %d\n", count_sequence_gaps(samples, header.record_count));
+
 
 for (int ch = 0; ch < header.channel_count; ch++) {
     float voltage[1000];
@@ -60,10 +68,13 @@ for (int ch = 0; ch < header.channel_count; ch++) {
     printf("channel %d min voltage: %f\n", ch, find_min(voltage, count));
     printf("channel %d max voltage: %f\n", ch, find_max(voltage, count));
     printf("channel %d standard dev: %f\n", ch, standard_deviation(voltage, count));
+    fprintf(out, "channel %d: avg=%f min=%f max=%f std=%f\n", ch, average(voltage, count),find_min(voltage, count), find_max(voltage, count), standard_deviation(voltage, count));
+
 }
 
     free(samples);
     fclose(file);
+    fclose(out);
     return 0;
 
 
