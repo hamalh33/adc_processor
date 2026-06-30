@@ -53,6 +53,8 @@ for (int ch = 0; ch < header.channel_count; ch++) {
         }
     }
     printf("channel %d average voltage: %f\n", ch, average(voltage, count));
+    printf("channel %d min voltage: %f\n", ch, find_min(voltage, count));
+    printf("channel %d max voltage: %f\n", ch, find_max(voltage, count));
 }
 
     free(samples);
