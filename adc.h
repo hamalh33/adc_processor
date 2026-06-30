@@ -32,6 +32,9 @@ typedef struct {
 
 
 float raw_to_voltage(uint16_t raw_value);
+int count_overvoltage(ADCSample samples[], int count);
+int count_undervoltage(ADCSample samples[], int count);
+int count_flag_faults(ADCSample samples[], int count);
 
 
 #endif
