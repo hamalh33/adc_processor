@@ -1,7 +1,8 @@
 #ifndef ADC_H
 #define ADC_H
-
 #include <stdint.h>
+
+
 
 #pragma pack(push, 1)
 typedef struct {
@@ -28,5 +29,9 @@ typedef struct {
     uint8_t reserved[2];
 } ADCSample;
 #pragma pack(pop)
+
+
+float raw_to_voltage(uint16_t raw_value);
+
 
 #endif
